@@ -4,11 +4,9 @@ import nextstep.subway.station.domain.Station;
 import nextstep.subway.station.domain.StationRepository;
 import nextstep.subway.station.dto.StationRequest;
 import nextstep.subway.station.dto.StationResponse;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityExistsException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +19,7 @@ public class StationService {
         this.stationRepository = stationRepository;
     }
 
-    public StationResponse saveStation(StationRequest stationRequest) throws Exception {
+    public StationResponse saveStation(StationRequest stationRequest) {
         Station persistStation = stationRepository.save(stationRequest.toStation());
         return StationResponse.of(persistStation);
     }

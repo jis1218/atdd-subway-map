@@ -22,7 +22,7 @@ public class LineService {
 
     public LineResponse saveLine(LineRequest request) {
         Line persistLine = lineRepository.save(request.toLine());
-        return lineToLineResponse(persistLine);
+        return LineResponse.of(persistLine);
     }
 
     public List<LineResponse> getLines(){
@@ -33,13 +33,13 @@ public class LineService {
     }
 
     public LineResponse getLine(Long id) {
-        return lineToLineResponse(getLineById(id));
+        return LineResponse.of(getLineById(id));
     }
 
     public LineResponse updateLine(Long id, LineRequest request){
         Line line = getLineById(id);
         line.update(request.toLine());
-        return lineToLineResponse(line);
+        return LineResponse.of(line);
     }
 
     private Line getLineById(Long id){
@@ -48,9 +48,5 @@ public class LineService {
 
     public void deleteLine(Long id) {
         lineRepository.deleteById(id);
-    }
-
-    private LineResponse lineToLineResponse(Line line){
-        return LineResponse.of(line);
     }
 }
